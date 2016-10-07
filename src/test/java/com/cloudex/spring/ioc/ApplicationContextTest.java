@@ -1,6 +1,6 @@
 package com.cloudex.spring.ioc;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -10,10 +10,14 @@ public class ApplicationContextTest {
 
     public static void main(String[] args) {
         System.out.println("start load spring context.");
-        ApplicationContext context =
+        ConfigurableApplicationContext context =
                 new ClassPathXmlApplicationContext(new String[]{"classpath:spring/spring-context.xml"});
+
+        // add a shutdown hook for the above context...
+        context.registerShutdownHook();
+
         System.out.println("finish load spring context beans.");
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("--------------------------start line---------------------------");
         TestBean testBean = context.getBean("testBean", TestBean.class);
         testBean.sayHello("Jim");
         TestBean testBean2 = context.getBean("testBean2", TestBean.class);
@@ -35,5 +39,17 @@ public class ApplicationContextTest {
         TestCommandManager testCommandManager = context.getBean("testCommandManager", TestCommandManager.class);
         testCommandManager.process("a");
         testCommandManager.process("b");
+
+        TestLifecycleBean testLifecycleBean = context.getBean("testLifecycleBean", TestLifecycleBean.class);
+        testLifecycleBean.sayHello();
+
+
+        TestLifecycle2Bean testLifecycle2Bean = context.getBean("testLifecycle2Bean", TestLifecycle2Bean.class);
+        testLifecycle2Bean.sayHello();
+
+        TestDerivedBean testDerivedBean = context.getBean("testDerivedBean", TestDerivedBean.class);
+        testDerivedBean.sayHello();
+
+        System.out.println("--------------------------last line----------------------------");
     }
 }

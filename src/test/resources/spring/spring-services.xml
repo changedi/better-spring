@@ -50,4 +50,23 @@
     <bean id="testCommandManager" class="com.cloudex.spring.ioc.TestCommandManager">
         <lookup-method name="createCommand" bean="testCommand"/>
     </bean>
+
+    <!--Lifecycle callbacks-->
+    <bean id="testLifecycleBean" class="com.cloudex.spring.ioc.TestLifecycleBean"/>
+
+    <!-- Lifecycle interface -->
+    <bean id="testLifecycle2Bean" class="com.cloudex.spring.ioc.TestLifecycle2Bean"/>
+
+    <!--Bean definition inheritance-->
+    <bean id="testAbastractBean" abstract="true">
+        <property name="name" value="parent"/>
+    </bean>
+
+    <bean id="testDerivedBean"
+          class="com.cloudex.spring.ioc.TestDerivedBean"
+          parent="testAbastractBean">
+        <!--<property name="name" value="override"/>-->
+    </bean>
+
+    <bean class="com.cloudex.spring.ioc.TestPostProcessor"/>
 </beans>
