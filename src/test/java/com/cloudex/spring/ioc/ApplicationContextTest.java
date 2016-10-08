@@ -50,6 +50,9 @@ public class ApplicationContextTest {
         TestDerivedBean testDerivedBean = context.getBean("testDerivedBean", TestDerivedBean.class);
         testDerivedBean.sayHello();
 
+        TestConfigPropertyBean testConfigPropertyBean = context.getBean("testConfigPropertyBean", TestConfigPropertyBean.class);
+        testConfigPropertyBean.sayHello();
+
         System.out.println("--------------------------last line----------------------------");
     }
 }

@@ -61,12 +61,20 @@
     <bean id="testAbastractBean" abstract="true">
         <property name="name" value="parent"/>
     </bean>
-
     <bean id="testDerivedBean"
           class="com.cloudex.spring.ioc.TestDerivedBean"
           parent="testAbastractBean">
         <!--<property name="name" value="override"/>-->
     </bean>
 
+    <!--Container Extension Points. Customizing beans using a BeanPostProcessor-->
     <bean class="com.cloudex.spring.ioc.TestPostProcessor"/>
+
+    <!--the Class name substitution PropertyPlaceholderConfigurer-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:config/config.properties"/>
+    </bean>
+    <!--<context:property-placeholder location="classpath:config/config.properties"/>-->
+    <bean id="testConfigPropertyBean" class="com.cloudex.spring.ioc.TestConfigPropertyBean"
+          p:name="${cloudex.spring.name}"/>
 </beans>
