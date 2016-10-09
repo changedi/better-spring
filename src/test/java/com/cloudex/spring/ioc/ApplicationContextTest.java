@@ -10,9 +10,10 @@ public class ApplicationContextTest {
 
     public static void main(String[] args) {
         System.out.println("start load spring context.");
+//        ConfigurableApplicationContext context =
+//                new ClassPathXmlApplicationContext(new String[]{"classpath:spring/spring-context.xml"});
         ConfigurableApplicationContext context =
-                new ClassPathXmlApplicationContext(new String[]{"classpath:spring/spring-context.xml"});
-
+                new ClassPathXmlApplicationContext(new String[]{"classpath:spring/spring-beans.xml"});
         // add a shutdown hook for the above context...
         context.registerShutdownHook();
 
