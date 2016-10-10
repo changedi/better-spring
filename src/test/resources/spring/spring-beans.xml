@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Instantiation with a constructor -->
+    <bean id="testBean" class="com.cloudex.spring.ioc.TestBean"/>
+    <!-- testBean equalTo testBean2 -->
+    <alias name="testBean" alias="testBean2"/>
+
+    <!-- Instantiation with a static factory method -->
+    <bean id="testFactoryBean" class="com.cloudex.spring.ioc.TestFactoryBean"
+          factory-method="staticCreateInstance"/>
+
+    <!-- the factory bean, which contains a method called createInstance() -->
+    <bean id="serviceLocator" class="com.cloudex.spring.ioc.TestFactoryBean">
+        <!-- inject any dependencies required by this locator bean -->
+    </bean>
+    <!-- the bean to be created via the factory bean -->
+    <bean id="testFactoryBean2"
+          factory-bean="serviceLocator"
+          factory-method="createInstance"/>
+
+    <!-- constructor dependency injection -->
+    <!--<bean id="testConstructorBean" class="com.cloudex.spring.ioc.TestConstructorBean">-->
+    <!--<constructor-arg index="0" value="7500000"/>-->
+    <!--<constructor-arg index="1" value="42"/>-->
+    <!--</bean>-->
+    <bean id="testConstructorBean" class="com.cloudex.spring.ioc.TestConstructorBean" c:_0="75000"
+          c:_1="42"/>
+
+    <!--property dependency injection-->
+    <!--<bean id="testPropertyBean" class="com.cloudex.spring.ioc.TestPropertyBean">-->
+    <!--<property name="id" value="100"/>-->
+    <!--</bean>-->
+    <bean id="testPropertyBean" class="com.cloudex.spring.ioc.TestPropertyBean" p:id="1000"/>
+
+    <!--lazy injection-->
+    <bean id="testLazyInitBean" class="com.cloudex.spring.ioc.TestLazyInitBean" lazy-init="true"/>
+
+    <!--method injection-->
+    <!-- a stateful bean deployed as a prototype (non-singleton) -->
+    <bean id="testCommand" class="com.cloudex.spring.ioc.TestCommand" scope="prototype">
+        <!-- inject dependencies here as required -->
+    </bean>
+    <!-- commandProcessor uses statefulCommandHelper -->
+    <bean id="testCommandManager" class="com.cloudex.spring.ioc.TestCommandManager">
+        <lookup-method name="createCommand" bean="testCommand"/>
+    </bean>
+
+    <!--Lifecycle callbacks-->
+    <bean id="testLifecycleBean" class="com.cloudex.spring.ioc.TestLifecycleBean"/>
+
+    <!-- Lifecycle interface -->
+    <bean id="testLifecycle2Bean" class="com.cloudex.spring.ioc.TestLifecycle2Bean"/>
+
+    <!--Bean definition inheritance-->
+    <bean id="testAbastractBean" abstract="true">
+        <property name="name" value="parent"/>
+    </bean>
+    <bean id="testDerivedBean"
+          class="com.cloudex.spring.ioc.TestDerivedBean"
+          parent="testAbastractBean">
+        <!--<property name="name" value="override"/>-->
+    </bean>
+
+    <!--Container Extension Points. Customizing beans using a BeanPostProcessor-->
+    <bean class="com.cloudex.spring.ioc.TestPostProcessor"/>
+
+    <!--the Class name substitution PropertyPlaceholderConfigurer-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="classpath:config/config.properties"/>
+    </bean>
+    <!--<context:property-placeholder location="classpath:config/config.properties"/>-->
+    <bean id="testConfigPropertyBean" class="com.cloudex.spring.ioc.TestConfigPropertyBean"
+          p:name="${cloudex.spring.name}"/>
+</beans>

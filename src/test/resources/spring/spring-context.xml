@@ -4,5 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="spring-services.xml"/>
+    <import resource="classpath:spring/spring-beans.xml"/>
+    <import resource="classpath:spring/spring-annotation-beans.xml"/>
 </beans>
