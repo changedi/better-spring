@@ -25,5 +25,5 @@
     <bean id="testQualifierBean" class="com.cloudex.spring.ioc.annotation.TestQualifierBean"/>
 
     <!--user component scan for all config above-->
-    <!--<context:component-scan base-package="com.cloudex.spring.ioc.annotation"/>-->
+    <context:component-scan base-package="com.cloudex.spring.ioc.annotation"/>
 </beans>

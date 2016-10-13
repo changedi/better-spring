@@ -31,6 +31,12 @@ public class AnnotationBeanTest {
         TestQualifierBean testQualifierBean = context.getBean("testQualifierBean", TestQualifierBean.class);
         testQualifierBean.sayHello();
 
+        TestDepend1Bean testDepend1Bean = context.getBean("testDepend1Bean", TestDepend1Bean.class);
+        testDepend1Bean.sayHello();
+        TestDepend2Bean testDepend2Bean = context.getBean("testDepend2Bean", TestDepend2Bean.class);
+        testDepend2Bean.sayHello();
+
+
         System.out.println("--------------------------last line----------------------------");
     }
 }
