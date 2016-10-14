@@ -13,7 +13,11 @@ public class TestAutowiredBean {
     @Resource
     private TestRequiredBean testRequiredBean;
 
+    @Resource
+    private TestPrototypeBean testPrototypeBean;
+
     public void sayHello() {
         testRequiredBean.sayHello();
+        testPrototypeBean.sayHello();
     }
 }

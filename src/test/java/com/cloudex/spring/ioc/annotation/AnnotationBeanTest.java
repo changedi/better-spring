@@ -36,6 +36,8 @@ public class AnnotationBeanTest {
         TestDepend2Bean testDepend2Bean = context.getBean("testDepend2Bean", TestDepend2Bean.class);
         testDepend2Bean.sayHello();
 
+        TestPrototypeBean testPrototypeBean = context.getBean("testPrototypeBean", TestPrototypeBean.class);
+        testPrototypeBean.sayHello();
 
         System.out.println("--------------------------last line----------------------------");
     }
