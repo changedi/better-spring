@@ -23,4 +23,8 @@ public class TestBean {
     public void exception() throws Exception {
         throw new Exception("aop test");
     }
+
+    public void around() {
+        System.out.println(this + " around.");
+    }
 }

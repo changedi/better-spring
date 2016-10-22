@@ -1,8 +1,10 @@
 package com.cloudex.spring.aop;
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -50,5 +52,12 @@ public class TestAspect {
     @After("execution(* com.cloudex.spring.aop.*.exception(..))")
     public void doAfterFinally() {
         System.out.println("here @AfterFinally exception. ");
+    }
+
+    @Around("execution(* com.cloudex.spring.aop.*.around(..))")
+    public void doAround(ProceedingJoinPoint pjp) throws Throwable {
+        System.out.println("here @Around start.");
+        Object retVal = pjp.proceed();
+        System.out.println("here @Around end.");
     }
 }

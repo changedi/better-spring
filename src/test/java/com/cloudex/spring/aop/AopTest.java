@@ -24,5 +24,6 @@ public class AopTest {
         } finally {
             System.err.println("finally");
         }
+        testBean.around();
     }
 }
