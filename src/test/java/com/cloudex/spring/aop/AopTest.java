@@ -17,5 +17,12 @@ public class AopTest {
         testBean.sayHello();
         testBean.sayBye();
         testBean.ret1();
+        try {
+            testBean.exception();
+        } catch (Exception e) {
+            System.err.println("exception");
+        } finally {
+            System.err.println("finally");
+        }
     }
 }

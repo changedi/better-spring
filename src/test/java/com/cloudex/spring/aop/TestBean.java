@@ -19,4 +19,8 @@ public class TestBean {
     public String ret1() {
         return "a";
     }
+
+    public void exception() throws Exception {
+        throw new Exception("aop test");
+    }
 }

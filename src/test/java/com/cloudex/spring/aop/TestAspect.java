@@ -1,6 +1,8 @@
 package com.cloudex.spring.aop;
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -30,12 +32,23 @@ public class TestAspect {
     }
 
     @AfterReturning("execution(* com.cloudex.spring.aop.*.sayBye(..))")
-    public void doAfter() {
-        System.out.println("here @After sayBye.");
+    public void doAfterReturning() {
+        System.out.println("here @AfterReturning sayBye.");
     }
 
     @AfterReturning(pointcut = "execution(* com.cloudex.spring.aop.*.ret1(..))", returning = "retVal")
     public void doAfterReturn(Object retVal) {
         System.out.println("here @AfterReturn ret1. with retVal:" + retVal);
+    }
+
+    @AfterThrowing(pointcut = "execution(* com.cloudex.spring.aop.*.exception(..))",
+            throwing = "ex")
+    public void doAfterException(Exception ex) {
+        System.out.println("here @AfterThrowing exception. " + ex);
+    }
+
+    @After("execution(* com.cloudex.spring.aop.*.exception(..))")
+    public void doAfterFinally() {
+        System.out.println("here @AfterFinally exception. ");
     }
 }
