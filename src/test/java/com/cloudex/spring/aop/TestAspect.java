@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.DeclareParents;
 import org.aspectj.lang.annotation.Pointcut;
 
 /**
@@ -15,6 +16,15 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class TestAspect {
 
+    /**
+     * introduction.
+     */
+    @DeclareParents(value = "com.cloudex.spring.aop.*+", defaultImpl = TestInterfaceImpl.class)
+    public static TestInterface mixin;
+
+    /**
+     * pointcut
+     */
     @Pointcut("execution(* com.cloudex.spring.aop.*.sayHello(..))")
     public void businessService() {
     }
@@ -23,9 +33,13 @@ public class TestAspect {
 //    public void returnService(){}
 
 
-    @Before("businessService()")
-    public void doBefore() {
-        System.out.println("here @Before sayHello().");
+    /**
+     * advices.
+     */
+
+    @Before("businessService() && args(n,..)")
+    public void doBefore(String n) {
+        System.out.println("here @Before sayHello(). " + n);
     }
 
     @Before("execution(* com.cloudex.spring.aop.*.sayBye(..))")
@@ -57,7 +71,28 @@ public class TestAspect {
     @Around("execution(* com.cloudex.spring.aop.*.around(..))")
     public void doAround(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("here @Around start.");
+        System.out.println(pjp.getClass());
+        System.out.println(pjp.getArgs().length);
+        System.out.println(pjp.getKind());
+        System.out.println(pjp.getSignature());
+        System.out.println(pjp.getThis());
+        System.out.println(pjp.getTarget());
+        System.out.println(pjp.getSourceLocation());
+        System.out.println(pjp.getStaticPart());
         Object retVal = pjp.proceed();
         System.out.println("here @Around end.");
     }
+
+    @Around("execution(* with*(..)) && @annotation(annotation)")
+    public void doAroundAnnotation(ProceedingJoinPoint pjp, TestAnnotation annotation) throws Throwable {
+        System.out.println("here around @Annotation. " + annotation.value() + ":" + annotation.key());
+        pjp.proceed();
+    }
+
+    @Before("businessService() && this(testInterface)")
+    public void doInterface(TestInterface testInterface) {
+        testInterface.doPrint("Lily");
+    }
+
+
 }

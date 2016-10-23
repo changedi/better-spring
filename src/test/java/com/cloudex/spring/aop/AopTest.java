@@ -14,7 +14,7 @@ public class AopTest {
 
         TestBean testBean = context.getBean("testBean", TestBean.class);
 
-        testBean.sayHello();
+        testBean.sayHello("Jim");
         testBean.sayBye();
         testBean.ret1();
         try {
@@ -25,5 +25,13 @@ public class AopTest {
             System.err.println("finally");
         }
         testBean.around();
+        testBean.withAnnotation();
+
+        // according to introduction. here testBean is also implements TestInterface.
+        TestInterface testInterface = (TestInterface) testBean;
+        testInterface.doPrint("Green.");
+
+        TestAnotherBean testAnotherBean = context.getBean("testAnotherBean", TestAnotherBean.class);
+        testAnotherBean.sayHello();
     }
 }

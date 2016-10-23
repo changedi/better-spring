@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestBean {
 
-    public void sayHello() {
-        System.out.println(this + " hello.");
+    public void sayHello(String name) {
+        System.out.println(this + " hello " + name);
     }
 
     public void sayBye() {
@@ -26,5 +26,10 @@ public class TestBean {
 
     public void around() {
         System.out.println(this + " around.");
+    }
+
+    @TestAnnotation(value = "test", key = 100)
+    public void withAnnotation() {
+        System.out.println(this + " with annotation.");
     }
 }
