@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+">
+
+    <!--use jdk dynamic-->
+    <!--<aop:aspectj-autoproxy/>-->
+    <!-- use cglib-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <context:component-scan base-package="com.cloudex.spring.aop.spring"/>
+
+    <bean id="aspectjPointcut" class="org.springframework.aop.aspectj.AspectJExpressionPointcut">
+        <property name="expression"
+                  value="execution( * com.cloudex.spring.aop.springstyle.*.*(..) )"></property>
+    </bean>
+
+    <bean id="regexPointcut"
+          class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+        <property name="patterns">
+            <list>
+                <value>.*get.*</value>
+                <value>.*ye</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="defaultAspectjAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="pointcut" ref="aspectjPointcut"/>
+        <!--<property name="advice" ref="aroundIntercepter"/>-->
+        <property name="advice" ref="testBeforeAdvice"/>
+    </bean>
+
+    <!--<bean id="defaultRegexAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">-->
+    <!--<property name="pointcut" ref="regexPointcut"/>-->
+    <!--<property name="advice" ref="aroundIntercepter"/>-->
+    <!--</bean>-->
+
+    <bean id="introductionAdvisor" class="com.cloudex.spring.aop.springstyle.LockMixinAdvisor">
+
+    </bean>
+
+    <!--advice-->
+    <bean id="aroundIntercepter" class="com.cloudex.spring.aop.springstyle.AroundIntercepter"/>
+    <bean id="testBeforeAdvice" class="com.cloudex.spring.aop.springstyle.TestBeforeAdvice"/>
+
+    <bean id="testBean" class="com.cloudex.spring.aop.springstyle.TestBean"/>
+</beans>
