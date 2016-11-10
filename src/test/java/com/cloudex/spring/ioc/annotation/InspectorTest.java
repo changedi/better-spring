@@ -33,9 +33,7 @@ public class InspectorTest {
                         if (fields.length > 0) {
                             Arrays.stream(fields)
                                     .filter(field -> beanNames.contains(field.getName()))
-                                    .forEach(field -> {
-                                        System.out.println("\t\t\t" + field.getName());
-                                    });
+                                    .forEach(field -> System.out.println("\t\t\t" + field.getName()));
                         }
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
