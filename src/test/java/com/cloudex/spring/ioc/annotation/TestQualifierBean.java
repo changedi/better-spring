@@ -15,7 +15,12 @@ public class TestQualifierBean {
     @Qualifier("first")
     private TestRequiredBean requiredBean;
 
+    @Resource
+    @Qualifier("someFunnyBean")
+    private TestQualifierInstance funny;
+
     public void sayHello() {
         System.out.println(this.getClass() + " say hello ... " + requiredBean.getName());
+        funny.sayHello();
     }
 }
