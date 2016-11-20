@@ -13,6 +13,7 @@
         <java.version>1.8</java.version>
         <java.encoding>UTF-8</java.encoding>
         <spring.version>4.3.3.RELEASE</spring.version>
+        <spring.jdbc.version>4.1.8.RELEASE</spring.jdbc.version>
         <junit.version>4.12</junit.version>
         <slf4j.version>1.5.8</slf4j.version>
         <log4j.version>1.2.14</log4j.version>
@@ -20,6 +21,7 @@
         <commons.collections.version>4.1</commons.collections.version>
         <commons.io.version>2.5</commons.io.version>
         <aspectj.version>1.8.2</aspectj.version>
+        <hsqldb.version>1.8.0.10</hsqldb.version>
     </properties>
 
 
@@ -74,12 +76,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring.jdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>4.1.8.RELEASE</version>
+            <version>${spring.jdbc.version}</version>
         </dependency>
 
         <!--apache commons-->
@@ -105,11 +107,12 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
         </dependency>
+
+        <!--hsqldb for test-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>4.1.8.RELEASE</version>
-            <scope>test</scope>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsqldb.version}</version>
         </dependency>
 
     </dependencies>
