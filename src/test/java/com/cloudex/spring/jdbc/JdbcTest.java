@@ -16,5 +16,24 @@ public class JdbcTest {
 
         corporateEventDao.count();
 
+        corporateEventDao.list();
+
+        corporateEventDao.insert();
+
+        corporateEventDao.update();
+
+        corporateEventDao.delete();
+
+        System.out.println("--------------");
+
+        UserDao userDao = context.getBean("jdbcUserDao", JdbcUserDao.class);
+
+        UserDO userDO = new UserDO();
+        userDO.setId(7);
+        userDO.setName("Jenifier");
+        userDao.add(userDO);
+        corporateEventDao.list();
+
+
     }
 }

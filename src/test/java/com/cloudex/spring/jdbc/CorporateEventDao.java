@@ -5,4 +5,12 @@ package com.cloudex.spring.jdbc;
  */
 public interface CorporateEventDao {
     void count();
+
+    void list();
+
+    void insert();
+
+    void update();
+
+    void delete();
 }
