@@ -32,6 +32,5 @@
     <!--<jdbc:script location="classpath:jdbc/test-data.sql"/>-->
     <!--</jdbc:embedded-database>-->
 
-
     <context:property-placeholder location="classpath:config/config.properties"/>
 </beans>
