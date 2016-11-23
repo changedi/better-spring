@@ -83,6 +83,11 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.jdbc.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
         <!--apache commons-->
         <dependency>
@@ -113,6 +118,12 @@
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>${hsqldb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.4.Final</version>
         </dependency>
 
     </dependencies>
