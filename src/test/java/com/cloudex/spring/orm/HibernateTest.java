@@ -10,11 +10,12 @@ import java.util.List;
 /**
  * Created by zunyuan.jy on 16/11/23.
  */
-public class OrmTest {
+public class HibernateTest {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context =
-                new ClassPathXmlApplicationContext(new String[]{"classpath:spring/spring-orm.xml"});
+                new ClassPathXmlApplicationContext(new String[]{"classpath:spring/spring-orm-hibernate.xml",
+                        "classpath:spring/spring-jdbc.xml"});
 
         UserDao userDao = context.getBean("userDao", UserDaoImpl.class);
 
