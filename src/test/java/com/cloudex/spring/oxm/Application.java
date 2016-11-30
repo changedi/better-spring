@@ -29,6 +29,18 @@ public class Application {
         application.saveSettings();
         application.loadSettings();
 
+
+        Unmarshaller castorMashaller = appContext.getBean("mashaller", Unmarshaller.class);
+        FileInputStream is = null;
+        try {
+            is = new FileInputStream(FILE_NAME);
+            Settings settings = (Settings) castorMashaller.unmarshal(new StreamSource(is));
+            System.out.println(settings.isFooEnabled());
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
     }
 
     public void setMarshaller(Marshaller marshaller) {
