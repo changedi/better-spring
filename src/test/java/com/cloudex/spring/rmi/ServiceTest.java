@@ -11,5 +11,6 @@ public class ServiceTest {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("classpath:spring/spring-rmi.xml");
         //启动服务端
+        System.out.println("rmi server start.");
     }
 }

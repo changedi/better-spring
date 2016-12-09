@@ -12,5 +12,6 @@ public class HttpServiceTest {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("classpath:spring/spring-rmi-http.xml");
         //启动http服务端
+        System.out.println("http server start.");
     }
 }
