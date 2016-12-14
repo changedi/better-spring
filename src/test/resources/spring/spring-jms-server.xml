@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="classpath:spring/spring-jms.xml"/>
 
-    <bean id="checkingAccountService"
-          class="org.springframework.jms.remoting.JmsInvokerServiceExporter">
-        <property name="serviceInterface" value="com.cloudex.spring.jms.CheckingAccountService"/>
-        <property name="service">
-            <bean class="com.cloudex.spring.jms.SimpleCheckingAccountService"/>
-        </property>
-    </bean>
+    <context:component-scan base-package="com.cloudex.spring.jms"/>
+    <!-- A JmsTemplate instance that uses the cached connection and destination -->
 
-    <bean class="org.springframework.jms.listener.SimpleMessageListenerContainer">
-        <property name="connectionFactory" ref="connectionFactory"/>
-        <property name="destination" ref="queue"/>
-        <property name="concurrentConsumers" value="3"/>
-        <property name="messageListener" ref="checkingAccountService"/>
-    </bean>
+    <bean id="producerTemplate"
+          class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="cachedConnectionFactory"
+          p:defaultDestination-ref="queue"/>
 
+    <bean id="producer" class="com.cloudex.spring.jms.SimpleMessageProducer"/>
 </beans>
