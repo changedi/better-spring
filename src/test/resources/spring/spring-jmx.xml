@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.cloudex.spring.jmx"/>
+
+    <bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean"/>
+
+    <!-- this bean must not be lazily initialized if the exporting is to happen -->
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="bean:name=testBean1" value-ref="testBean"/>
+            </map>
+        </property>
+        <property name="server" ref="mbeanServer"/>
+        <property name="registrationBehaviorName" value="REGISTRATION_REPLACE_EXISTING"/>
+    </bean>
+    <bean id="testBean" class="com.cloudex.spring.jmx.JmxTestBean"
+          p:name="TEST" p:age="100"/>
+
+    <!--<bean id="serverConnector"-->
+    <!--class="org.springframework.jmx.support.ConnectorServerFactoryBean">-->
+    <!--<property name="objectName" value="bean:name=testBean1"/>-->
+    <!--<property name="serviceUrl"-->
+    <!--value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/myconnector"/>-->
+    <!--</bean>-->
+</beans>
