@@ -161,6 +161,7 @@
             <artifactId>activemq-spring</artifactId>
             <version>5.14.1</version>
         </dependency>
+
     </dependencies>
 
     <build>

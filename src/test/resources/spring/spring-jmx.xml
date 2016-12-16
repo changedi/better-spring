@@ -25,10 +25,14 @@
     <bean id="testBean" class="com.cloudex.spring.jmx.JmxTestBean"
           p:name="TEST" p:age="100"/>
 
-    <!--<bean id="serverConnector"-->
-    <!--class="org.springframework.jmx.support.ConnectorServerFactoryBean">-->
-    <!--<property name="objectName" value="bean:name=testBean1"/>-->
-    <!--<property name="serviceUrl"-->
-    <!--value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/myconnector"/>-->
-    <!--</bean>-->
+    <bean id="serverConnector"
+          class="org.springframework.jmx.support.ConnectorServerFactoryBean">
+        <!--<property name="objectName" value="connector:name=rmi"/>-->
+        <!--<property name="serviceUrl"-->
+        <!--value="service:jmx:rmi://localhost/jndi/rmi://localhost:10099/jmxrmi"/>-->
+    </bean>
+
+    <bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+        <property name="port" value="10099"/>
+    </bean>
 </beans>

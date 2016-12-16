@@ -37,7 +37,8 @@ public class JmxTestBean implements IJmxTestBean {
         return x + y;
     }
 
-    public void dontExposeMe() {
-        throw new RuntimeException();
+    @Override
+    public long myOperation() {
+        return 0;
     }
 }
