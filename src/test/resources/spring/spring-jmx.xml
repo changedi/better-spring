@@ -19,9 +19,33 @@
                 <entry key="bean:name=testBean1" value-ref="testBean"/>
             </map>
         </property>
+        <property name="notificationListeners">
+            <list>
+                <bean class="org.springframework.jmx.export.NotificationListenerBean">
+                    <constructor-arg ref="customerNotificationListener"/>
+                    <property name="mappedObjectNames">
+                        <list>
+                            <value>bean:name=testBean1</value>
+                        </list>
+                    </property>
+                    <property name="handback">
+                        <bean class="java.lang.String">
+                            <constructor-arg value="This could be anything..."/>
+                        </bean>
+                    </property>
+                    <property name="notificationFilter" ref="customerNotificationListener"/>
+                </bean>
+            </list>
+        </property>
         <property name="server" ref="mbeanServer"/>
         <property name="registrationBehaviorName" value="REGISTRATION_REPLACE_EXISTING"/>
     </bean>
+
+    <!-- implements both the NotificationListener and NotificationFilter interfaces -->
+    <bean id="customerNotificationListener"
+          class="com.cloudex.spring.jmx.ConsoleLoggingNotificationListener"/>
+
+
     <bean id="testBean" class="com.cloudex.spring.jmx.JmxTestBean"
           p:name="TEST" p:age="100"/>
 

@@ -1,13 +1,19 @@
 package com.cloudex.spring.jmx;
 
+import org.springframework.jmx.export.notification.NotificationPublisher;
+import org.springframework.jmx.export.notification.NotificationPublisherAware;
+
+import javax.management.Notification;
+
 /**
  * Created by zunyuan.jy on 16/12/15.
  */
-public class JmxTestBean implements IJmxTestBean {
+public class JmxTestBean implements IJmxTestBean, NotificationPublisherAware {
 
     private String name;
     private int age;
     private boolean isSuperman;
+    private NotificationPublisher publisher;
 
     public String getName() {
         return name;
@@ -34,11 +40,17 @@ public class JmxTestBean implements IJmxTestBean {
     }
 
     public int add(int x, int y) {
+        this.publisher.sendNotification(new Notification("add", this, 0));
         return x + y;
     }
 
     @Override
     public long myOperation() {
         return 0;
+    }
+
+    @Override
+    public void setNotificationPublisher(NotificationPublisher notificationPublisher) {
+        this.publisher = notificationPublisher;
     }
 }
