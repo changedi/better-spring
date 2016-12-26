@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--This configuration file contains the JMS-infrastructure beans that are shared on both the client and server-->
-    <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://localhost:61616"/>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="somehost.com"/>
+        <property name="username" value="someusername"/>
+        <property name="password" value="somepassword"/>
     </bean>
 
-    <!-- A cached connection to wrap the ActiveMQ connection -->
+    <!-- this is a template message that we can pre-load with default state -->
+    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="johnsmith@abc.com"/>
+        <property name="subject" value="Your order"/>
+    </bean>
 
-    <bean id="cachedConnectionFactory"
-
-          class="org.springframework.jms.connection.CachingConnectionFactory"
-
-          p:targetConnectionFactory-ref="connectionFactory"
-
-          p:sessionCacheSize="10"/>
-
-    <bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg value="mmm"/>
+    <bean id="orderManager" class="com.cloudex.spring.mail.SimpleOrderManager">
+        <property name="mailSender" ref="mailSender"/>
+        <property name="templateMessage" ref="templateMessage"/>
     </bean>
 
 </beans>
